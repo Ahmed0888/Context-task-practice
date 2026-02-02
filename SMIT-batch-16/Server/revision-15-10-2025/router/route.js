@@ -9,5 +9,8 @@ router.post("/createUser", signUp);
 router.post("/login", login);
 router.post("/home", authrization, home);
 router.put("/userfinder", updateUser);
+router.post('/profiles', profileRoutes);
+// Serve static files (uploaded images)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = router;

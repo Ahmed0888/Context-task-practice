@@ -3,6 +3,9 @@ const express = require("express");
 const userData = require("./router/route");
 const dbCon = require("./db/dbConnection");
 const cors = require("cors");
+const profileRoutes = require('./routes/profileRoutes');
+const path = require('path');
+
 // https://zweck.io/jwt-authentication-in-node-js-with-middleware-a-secure-approach-for-web-applications/
 // Describe local and global varriables
 
@@ -38,17 +41,31 @@ dbCon();
 app.use("/api", userData);
 
 
-// req will be come from frontend (user provided data)
-// res will send to frontend the from server/backend (server responded data/result)
-app.get("/", (req, res) => {
-  res.send("hello world");
-  // console.log("hello world");
-});
-
-// app.put("/api/user",()=>{
-//  const id = req.params
+// // req will be come from frontend (user provided data)
+// // res will send to frontend the from server/backend (server responded data/result)
+// app.get("/", (req, res) => {
+//   res.send("hello world");
+//   // console.log("hello world");
 // });
-// app.delete();
+
+// // app.put("/api/user",()=>{
+// //  const id = req.params
+// // });
+// // app.delete();
+
+
+
+
+
+// Serve static files (uploaded images)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Use the profile routes
+// app.use('/api/profiles', profileRoutes);
+
+app.get('/', (req, res) => {
+    res.send('API Server Running');
+});
 
 app.listen(PORT, () => {
   // template littrels
